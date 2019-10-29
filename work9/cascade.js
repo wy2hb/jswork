@@ -79,6 +79,7 @@ function createOption(obj,data) {
         obj.options.add(op);
     }
 }
+    
 var collegeSelect = document.getElementById('collegeSelect');
 createOption(collegeSelect,colleges);
 
@@ -89,7 +90,7 @@ collegeSelect.onchange = function(){
 };
 
 var classSelect= document.getElementById('classSelect');
-classSelect.onchange = function() {
+majorSelect.onchange = function() {
     classSelect.options.length = 0;
     createOption(classSelect,classes[collegeSelect.value][majorSelect.value]);   
 };
@@ -103,3 +104,4 @@ if (collegeSelect.value >= 0) {
     classSelect.options.length = 0;
 }
 };
+    
