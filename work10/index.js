@@ -23,20 +23,14 @@ function monkey(){
 }
 
 function stat(){
-    let str = document.getElementById("str").value
+    let str = document.getElementById('str').value
     let obj = {}
-    for (var i = 0;i<str.length;i++) {
-        if (obj.lastIndexOf(str[i]) == -1){
-            obj +=str[i];
+    let charAt = str.split("")
+    charAt =charAt.sort()
+    for (var i = 0;i<str.length;i++){
+        let paixu =charAt[i]
+        obj[paixu] = (obj [paixu] + 1) || 1;
         }
+        document.getElementById('result').innerText = JSON.stringify(obj)
     }
-    for (var i = 0;i<obj.length;i++){
-         for (var j = 0;j<obj.length;j++) {
-             if(obj[i]==str[j]){
-             obj++;
-             }
-         }
-
-        }
-    document.getElementById('result').innerText = JSON.stringify(obj)
-}
+   
