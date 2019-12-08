@@ -1,21 +1,22 @@
+
 var lamp = {
-    red: {
+    red:{
         obj: document.getElementById('red'),
-        timeout:3,
+        timeout: 3,
         style:['red','gray','gray'],
         next: 'green'
     },
     yellow: {
         obj: document.getElementById('yellow'),
         timeout: 2,
-        style: ['gray', 'yellow', 'gray'],
-        next: 'yellow'
+        style:['gray','yellow','gray'],
+        next: 'red'
     },
     green: {
         obj: document.getElementById('green'),
-        timeout: 2,
-        style: ['gray', 'gray', 'gray'],
-        next: 'yellow'
+        timeout: 5,
+        style: ['gray','gray','green'],
+        next:'yellow'
     },
     changeStyle(style) {
         this.red.obj.className = style[0];
@@ -34,7 +35,7 @@ var timeout = now.timeout;
 lamp.changeStyle(now.style);
 count.change(timeout);
 setInterval(function() {
-    if (--timeout <= 0) {
+    if (--timeout <= 0){
         now = lamp[now.next];
         timeout = now.timeout;
         lamp.changeStyle(now.style);
