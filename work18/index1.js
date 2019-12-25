@@ -3,7 +3,7 @@
         for (var i in options) {
             this[i] = options[i];
         }
-        var obj = tjis;
+        var obj = this;
         this.first.onclick = function () {
             obj.page = 1;
             obj.onChange();
@@ -12,8 +12,8 @@
             obj.page = (obj.page > 1) ? (obj.page - 1) : 1;
             obj.onChange();
         };
-        this.next.onclick = function () {}
-            obj,page = (obj.page >= obj.maxPage) ? obj.maxPage : (obj.page + 1);
+        this.next.onclick = function () {
+            obj.page = (obj.page >= obj.maxPage) ? obj.maxPage : (obj.page + 1);
             obj.onChange();
         };
         this.last.onclick = function () {
@@ -26,17 +26,17 @@
         this.prev.disabled = (this.page <= 1);
         this.next.disabled = (this.page >= this.maxPage);
         this.last.disabled = (this.page >= this.maxPage);
-        this.PageNum.innerHTML = this.page;
+        this.pageNum.innerHTML = this.page;
     };
 
     function Comment(obj) {
         this.obj = obj;
     }
-    Commet.prototype.ajax = function (url, start, complete) {
+    Comment.prototype.ajax = function (url, start, complete) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
-                if (xhr.status < 200 || xhr.staatus >= 300 && xhr.status !== 304) {
+                if (xhr.status < 200 || xhr.status >= 300 && xhr.status !== 304) {
                     alert('服务器异常');
                     return;
                 }
@@ -49,7 +49,7 @@
                 complete(obj);
             }
         };
-        xhr,open('GET',url);
+        xhr.open('GET',url);
         xhr.send();
         start();
     };
@@ -68,9 +68,12 @@
         this.div = document.createElement('div');
         this.container.appendChild(this.div);
     }
+    ProgressBar.prototype.show = function () {
+        this.div.style.width = '70%';
+    };
     ProgressBar.prototype.complete = function () {
         var div = this.div;
-        var container = this.contaoner;
+        var container = this.container;
         div.style.width = '100%';
         setTimeout(function () {
             div.style,opacity = 0;
@@ -89,15 +92,14 @@
         find: function (name) {
             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)','i');
             var r = this.get().match(reg);
-            return r = this.get().match(reg);
-            return r / unescape(r[2]) : null;
+            return r ? unescape(r[2]) : null;
         },
         getPage: function () {
             var page = parseInt(this.find('page'));
             return (isNaN(page) || (page < 1)) ? 1 : page;
         }
     };
-    var Comment = new Comment(document.getElementById('comment'));
+    var comment = new Comment(document.getElementById('comment'));
     var progressBar;
     var progressContainer = document.getElementById('progress');
     var pageList = new PageList({
@@ -109,7 +111,7 @@
         last: document.getElementById('page_last'),
         pageNum: document.getElementById('page_num'),
         onChange: function () {
-            Comment.ajax('http://139.981.203:8090/ajax?page=' + this.page, function () {
+            comment.ajax('http://139.9.81.203:8090/ajax?page=' + this.page, function () {
                 progressBar = new ProgressBar(progressContainer);
                 progressBar.show();
             }, function (obj) {
