@@ -8,7 +8,7 @@ $(function () {
     $('.hot').append(firstimg).width($('.hot li').length * width);
     timer = setInterval(imgChange, delay);
     $('.banner').hover(function () {
-        clearInterval(time);
+        clearInterval(timer);
     }, function () {
         timer = setInterval(imgChange, delay);
     });
